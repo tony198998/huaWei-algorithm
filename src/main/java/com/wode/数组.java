@@ -1,8 +1,6 @@
 package com.wode;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author tao
@@ -82,11 +80,12 @@ class 数组 {
     }
 
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7};
-        int k = 3;
-        rotate(nums, 3);
-    }
+//    public static void main(String[] args) {
+//        int[] nums = new int[]{1, 2,3};
+//        int k = 4;
+//        rotate(nums, k);
+
+//    }
 
     /**
      * 给定一个整数数组 nums，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
@@ -96,30 +95,58 @@ class 数组 {
      */
     public static void rotate(int[] nums, int k) {
         int length = nums.length;
-        int beginIndex = length - k;
-
-       int[] finNums = new int[]{};
-
-        Set<Integer> sets = new HashSet<>();
-        for (int i = 0; i < length; i++) {
-            if (beginIndex >= i){
-                sets.add(nums[i]);
+        //把数组放入List中
+        if (k > length) {
+            List<Integer> arr = new ArrayList<>();
+            for (int i = 0; i < length; i++) {
+                arr.add(nums[i]);
             }
-        }
 
-        for (int i = 0; i < length; i++) {
-            if (i<beginIndex){
-                sets.add(nums[i]);
+            for (int i = 0; i < length; i++) {
+                nums[(i + k - length) % length] = arr.get(i);
             }
-        }
-        Object[] objects = sets.stream().toArray();
+            Arrays.stream(nums).forEach(x -> {
+                System.out.println(x);
+            });
 
-        for (int i = 0; i < objects.length; i++) {
-            finNums[i] = (int)objects[i];
+        } else {
+            int beginIndex = length - k;
+
+
+            List<Integer> sets = new ArrayList<>();
+            for (int i = 0; i < length; i++) {
+                if (i >= beginIndex) {
+                    sets.add(nums[i]);
+                }
+            }
+
+            for (int i = 0; i < length; i++) {
+                if (i < beginIndex) {
+                    sets.add(nums[i]);
+                }
+            }
+            Object[] objects = sets.stream().toArray();
+
+            for (int i = 0; i < objects.length; i++) {
+                nums[i] = (int) objects[i];
+            }
+            Arrays.stream(nums).forEach(x -> {
+                System.out.println(x);
+            });
         }
-        Arrays.stream(finNums).forEach(x ->{
-            System.out.println(x);
-        });
+//
+//        int n = nums.length;
+//        int[] newArr = new int[n];
+//        for (int i = 0; i < n; ++i) {
+//            newArr[(i + k) % n] = nums[i];
+//        }
+//        System.arraycopy(newArr, 0, nums, 0, n);
+//    }
     }
+
+    public boolean canJump(int[] nums) {
+        
+    }
+
 
 }
